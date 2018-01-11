@@ -1,0 +1,9 @@
+name: orm
+version: 0.1.0
+
+authors:
+  - jwaldrip <jason@waldrip.net>
+
+crystal: 0.24.1
+
+license: MIT
