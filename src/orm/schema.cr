@@ -27,7 +27,7 @@ abstract struct ORM::Schema
   end
 
   macro has_many(relation, *, through = nil, source = nil, validate = nil, autosave = nil, extend = nil, foreign_key = nil, primary_key = nil, dependent = nil)
-    def Relationships.{{ relation.var }}
+    def RelationshipQueries.{{ relation.var }}
       { kind: through: {{ through }}, source: {{ source }}, validate: {{ validate }}, autosave: {{ autosave }}, extend: {{ extend }}, foreign_key: {{ foreign_key }}, primary_key: {{ primary_key }}, dependent: {{ dependent }} }
     end
 
@@ -55,7 +55,7 @@ abstract struct ORM::Schema
     @{{ relation.var }} : {{ relation.type }}?
 
     def {{ relation.var }} : {{ relation.type }}
-      @{{ relation.var }} ||= Relationships.{{ relation.var }}.first
+      @{{ relation.var }} ||= RelationshipQueries.{{ relation.var }}.first
     end
   end
 
