@@ -1,0 +1,25 @@
+# ORM
+An object relational mapper for Crystal.
+
+## An example model
+
+```crystal
+model User do # or class User < ORM::Model
+  schema do # everything in schema should map to a change in SQL
+    table "users"
+    primary_key id : UUID, column_type: "uuid", default: uuid_generate_v4()
+    field first_name : String
+    field last_name : String, column_type: "string", column_name: "lastName", unique: true, default: "some value"
+    field age : Int32
+
+    has_many posts : BlogPost, foreign_key: "author_id", primary_key: "id"
+    belongs_to organization : Organization, foreign_key: "organization_id", primary_key: "id"
+    has_and_belongs_to_many categories : Category, reference_key: "user_id", other_reference_key: "category_id", join_table: "categories_users"
+    has_many comments : Comment, through: posts
+
+    constraint check: "age > 13"
+  end
+
+  # ... application specific logic
+end
+```
